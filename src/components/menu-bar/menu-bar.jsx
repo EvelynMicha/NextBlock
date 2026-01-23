@@ -449,7 +449,7 @@ class MenuBar extends React.Component {
                         </div>
                         <a
                             className={classNames(styles.menuBarItem, styles.hoverable, styles.guideLink)}
-                            href="/static/guide/index.html"
+                            href="static/guide/index.html"
                             target="_blank"
                             rel="noreferrer"
                         >

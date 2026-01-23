@@ -20,6 +20,8 @@ class Scratch3Easyplug {
         this.runtime = runtime;
         this._connected = false;
         this._transport = 'serial';
+        this._radioQueue = [];
+        this._radioGroup = 1;
         this._ledOn = false;
         this._port = null;
         this._writer = null;
@@ -349,6 +351,69 @@ class Scratch3Easyplug {
                             defaultValue: 'P0'
                         }
                     }
+                },
+                {
+                    opcode: 'radioSetGroup',
+                    blockType: BlockType.COMMAND,
+                    text: formatMessage({
+                        id: 'extension.easyplug.radioSetGroup',
+                        default: L('radio set group [GROUP]', 'radio όρισε ομάδα [GROUP]'),
+                        description: 'Set micro:bit radio group'
+                    }),
+                    arguments: {
+                        GROUP: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 1
+                        }
+                    }
+                },
+                {
+                    opcode: 'radioSendString',
+                    blockType: BlockType.COMMAND,
+                    text: formatMessage({
+                        id: 'extension.easyplug.radioSendString',
+                        default: L('radio send text [TEXT]', 'radio στείλε κείμενο [TEXT]'),
+                        description: 'Send radio string'
+                    }),
+                    arguments: {
+                        TEXT: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'hello'
+                        }
+                    }
+                },
+                {
+                    opcode: 'radioSendNumber',
+                    blockType: BlockType.COMMAND,
+                    text: formatMessage({
+                        id: 'extension.easyplug.radioSendNumber',
+                        default: L('radio send number [NUM]', 'radio στείλε αριθμό [NUM]'),
+                        description: 'Send radio number'
+                    }),
+                    arguments: {
+                        NUM: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 0
+                        }
+                    }
+                },
+                {
+                    opcode: 'radioHasMessage',
+                    blockType: BlockType.BOOLEAN,
+                    text: formatMessage({
+                        id: 'extension.easyplug.radioHas',
+                        default: L('radio message available?', 'υπάρχει μήνυμα radio;'),
+                        description: 'Radio has queued message'
+                    })
+                },
+                {
+                    opcode: 'radioReceive',
+                    blockType: BlockType.REPORTER,
+                    text: formatMessage({
+                        id: 'extension.easyplug.radioRecv',
+                        default: L('radio receive', 'radio λήψη'),
+                        description: 'Get next radio message'
+                    })
                 }
             ],
             menus: {
@@ -579,6 +644,9 @@ class Scratch3Easyplug {
                 value: isNaN(val) ? 0 : val,
                 seq: this._seq++
             };
+        } else if (parts.length >= 2 && parts[0] === 'RADIO') {
+            const payload = parts.slice(1).join(':');
+            this._radioQueue.push(payload);
         }
     }
 
@@ -719,6 +787,35 @@ class Scratch3Easyplug {
     async tmOff () {
         await this._sendLine('TMOFF');
         return null;
+    }
+
+    async radioSetGroup (args) {
+        const group = Math.max(0, Math.min(255, Math.floor(Number(args.GROUP)) || 0));
+        this._radioGroup = group;
+        await this._sendLine(`RADIOSET:${group}`);
+        return null;
+    }
+
+    async radioSendString (args) {
+        const text = this._sanitizeText(args.TEXT);
+        await this._sendLine(`RADIOSEND:${text}`);
+        return null;
+    }
+
+    async radioSendNumber (args) {
+        const num = Number(args.NUM);
+        const payload = isNaN(num) ? '0' : String(num);
+        await this._sendLine(`RADIOSEND:${payload}`);
+        return null;
+    }
+
+    radioHasMessage () {
+        return this._radioQueue.length > 0;
+    }
+
+    radioReceive () {
+        if (this._radioQueue.length === 0) return '';
+        return this._radioQueue.shift();
     }
 
     async _sense (kind) {

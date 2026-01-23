@@ -2,7 +2,7 @@
 <html lang="el">
 <head>
   <meta charset="UTF-8">
-  <title>EasyPlug – NextBlock Guide</title>
+  <title>EasyPlug � NextBlock Guide</title>
   <style>
     body { font-family: Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; color: #1f2630; }
     h1, h2 { margin-top: 0; }
@@ -14,53 +14,56 @@
 </head>
 <body>
   <h1>EasyPlug</h1>
-  <p>Extension για το EasyPlug shield: WebSerial (USB) ή BLE UART. Pins, LCD (I2C), TM1637.</p>
+  <p>Extension ??a t? EasyPlug shield: WebSerial (USB) + Radio (????? Bluetooth). Pins, LCD (I2C), TM1637, radio �???�ata.</p>
 
   <div class="card">
     <h2>Firmware</h2>
-    <p>Κατέβασε το firmware και φλαςάρισε το micro:bit που κουμπώνει στο EasyPlug:</p>
-    <p><a href="../firmware/microbit-nextblock_easyplug_super.hex" download>Κατέβασε microbit-nextblock_easyplug_super.hex</a></p>
-    <p>Οδηγίες flash: σύνδεση USB → drag &amp; drop στο <code>MICROBIT</code> → περίμενε να ολοκληρωθεί.</p>
+    <p>?at?�ase t? firmware ?a? f??sa?e t? micro:bit p?? ???�p??e? st? EasyPlug:</p>
+    <p><a href="../firmware/microbit-nextblock_easyplug_super.hex" download>?at?�ase microbit-nextblock_easyplug_super.hex</a></p>
+    <p>?d???e? flash: s??des? USB ? drag &amp; drop st? <code>MICROBIT</code> ? pe??�e?e ?a ?????????e?.</p>
+    <p>?? firmware p???? ??e? <strong>radio</strong> (?�?da 1) ?a? ??? Bluetooth. ?? ???e?? ???? ?�?da, ???a?e t? block �radio set group�.</p>
   </div>
 
   <div class="card">
-    <h2>Σύνδεση</h2>
+    <h2>S??des?</h2>
     <ol>
-      <li>Άνοιξε το NextBlock και πρόσθεσε το extension <strong>EasyPlug Super</strong>.</li>
-      <li>Πάτησε <em>connect (USB)</em> (WebSerial) ή <em>connect (Bluetooth)</em> για BLE.</li>
-      <li>Το block <em>easyplug connected?</em> πρέπει να γίνει true.</li>
+      <li>?????e t? NextBlock ?a? p??s?ese t? extension <strong>EasyPlug Super</strong>.</li>
+      <li>??t?se <em>connect (USB)</em> (WebSerial) ?a? ep??e?e t? micro:bit.</li>
+      <li>?? block <em>easyplug connected?</em> p??pe? ?a ???e? true. ?? radio d???e?e? a?t?�ata (?d?a ?�?da).</li>
     </ol>
   </div>
 
   <div class="card">
-    <h2>Βασικά blocks</h2>
+    <h2>?as??? blocks</h2>
     <ul>
       <li><code>digital write [PIN] to [0/1]</code>, <code>digital read [PIN]</code></li>
       <li><code>analog write [PIN] to (0-1023)</code>, <code>analog read [PIN]</code></li>
-      <li>LCD: init διεύθυνση, show string/number, clear, on/off</li>
+      <li>LCD: init d?e????s?, show string/number, clear, on/off</li>
       <li>TM1637: init (CLK=P2, DIO=P1, brt=7, digits=4), show number/hex/digit/DP, clear/on/off</li>
-      <li>Temperature reporter: <code>temperature (°C)</code></li>
+      <li>Temperature reporter: <code>temperature (�C)</code></li>
       <li>LED helper: <code>set LED [on/off] on pin [PIN]</code></li>
+      <li>Radio: <code>radio set group [#]</code>, <code>radio send text [TEXT]</code>, <code>radio send number [NUM]</code>, <code>radio message available?</code>, <code>radio receive</code></li>
     </ul>
   </div>
 
   <div class="card">
-    <h2>Πρωτόκολλο (USB/BLE)</h2>
+    <h2>???t?????? (USB + radio)</h2>
     <ul>
-      <li><code>DW:&lt;pin&gt;:&lt;0|1&gt;</code>, <code>DR:&lt;pin&gt;?</code> → <code>DR:&lt;pin&gt;:&lt;0|1&gt;</code></li>
-      <li><code>AW:&lt;pin&gt;:&lt;0-1023&gt;</code>, <code>AR:&lt;pin&gt;?</code> → <code>AR:&lt;pin&gt;:&lt;value&gt;</code></li>
-      <li><code>SENSE:TEMP?</code> → <code>SENSE:TEMP:&lt;val&gt;</code></li>
+      <li><code>DW:&lt;pin&gt;:&lt;0|1&gt;</code>, <code>DR:&lt;pin&gt;?</code> ? <code>DR:&lt;pin&gt;:&lt;0|1&gt;</code></li>
+      <li><code>AW:&lt;pin&gt;:&lt;0-1023&gt;</code>, <code>AR:&lt;pin&gt;?</code> ? <code>AR:&lt;pin&gt;:&lt;value&gt;</code></li>
+      <li><code>SENSE:TEMP?</code> ? <code>SENSE:TEMP:&lt;val&gt;</code></li>
       <li>LCD: <code>LCDINIT</code>, <code>LCDSTR</code>, <code>LCDNUM</code>, <code>LCDCLR</code>, <code>LCDON/OFF</code></li>
       <li>TM1637: <code>TMINIT</code>, <code>TMNUM</code>, <code>TMHEX</code>, <code>TMBIT</code>, <code>TMDP</code>, <code>TMCLEAR</code>, <code>TMON/TMOFF</code></li>
+      <li>Radio: <code>RADIOSET:&lt;group&gt;</code>, <code>RADIOSEND:&lt;text&gt;</code>, e?se???�e?? <code>RADIO:&lt;payload&gt;</code></li>
     </ul>
   </div>
 
   <div class="card">
-    <h2>Πινάκια (συμβουλές)</h2>
+    <h2>??????a (s?��?????)</h2>
     <ul>
       <li>Digital: P0, P1, P2, P3, P4, P5, P6, P7, P8, P10, P11, P12.</li>
       <li>Analog: P0, P1, P2, P10.</li>
-      <li>LCD: διεύθυνση συνήθως 39 (0x27).</li>
+      <li>LCD: d?e????s? s?????? 39 (0x27).</li>
       <li>TM1637: default CLK=P2, DIO=P1.</li>
     </ul>
   </div>
