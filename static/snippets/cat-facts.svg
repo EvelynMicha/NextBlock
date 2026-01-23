@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="372" viewBox="0 0 600 372">
+  <rect width="600" height="372" rx="26" fill="#ff9800"/>
+  <rect x="40" y="60" width="520" height="252" rx="22" fill="#fff3e0"/>
+  <rect x="60" y="90" width="200" height="32" rx="8" fill="#ff9800"/>
+  <text x="70" y="113" font-family="Arial" font-size="16" fill="#fff" font-weight="700">Cat Facts API</text>
+  <rect x="60" y="140" width="480" height="26" rx="6" fill="#ffe0b2"/>
+  <text x="70" y="160" font-family="Arial" font-size="15" fill="#ff9800">https://catfact.ninja/fact</text>
+  <rect x="60" y="190" width="480" height="120" rx="12" fill="#fff" stroke="#ff9800" stroke-width="2"/>
+  <text x="80" y="220" font-family="Arial" font-size="18" fill="#ff9800" font-weight="700">When green flag clicked</text>
+  <text x="80" y="245" font-family="Arial" font-size="16" fill="#ff9800">• fetch JSON</text>
+  <text x="80" y="270" font-family="Arial" font-size="16" fill="#ff9800">• take fact</text>
+  <text x="80" y="295" font-family="Arial" font-size="16" fill="#ff9800">• say the fact</text>
+  <path d="M500 220 q-20 -40 -40 0 q0 20 20 30 q20 -10 20 -30" fill="#ffcc80" stroke="#ff9800" stroke-width="4"/>
+  <circle cx="480" cy="205" r="6" fill="#000"/>
+  <circle cx="504" cy="205" r="6" fill="#000"/>
+  <rect x="62" y="62" width="12" height="12" rx="2" fill="#00c853"/>
+  <rect x="80" y="62" width="12" height="12" rx="2" fill="#ffab00"/>
+  <rect x="98" y="62" width="12" height="12" rx="2" fill="#ff5252"/>
+</svg>

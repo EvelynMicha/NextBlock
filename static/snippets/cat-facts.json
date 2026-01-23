@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "semver": "3.0.0",
+    "vm": "0.1.0",
+    "agent": "https://github.com/custom-scratch"
+  },
+  "extensions": ["httpapi"],
+  "monitors": [],
+  "extensionData": {},
+  "targets": [
+    {
+      "isStage": true,
+      "name": "Stage",
+      "variables": {},
+      "lists": {},
+      "broadcasts": {},
+      "blocks": {},
+      "currentCostume": 0,
+      "costumes": [
+        {
+          "assetId": "cd21514d0531fdffb22204e0ec5ed84a",
+          "md5ext": "cd21514d0531fdffb22204e0ec5ed84a.svg",
+          "dataFormat": "svg",
+          "name": "Backdrop 1",
+          "rotationCenterX": 240,
+          "rotationCenterY": 180
+        }
+      ],
+      "sounds": [
+        {
+          "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+          "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+          "dataFormat": "wav",
+          "name": "Pop",
+          "rate": 11025,
+          "sampleCount": 258,
+          "format": ""
+        }
+      ],
+      "volume": 100
+    },
+    {
+      "isStage": false,
+      "name": "Cat Fact",
+      "variables": {
+        "h": ["h", ""],
+        "fact": ["fact", ""]
+      },
+      "lists": {},
+      "broadcasts": {},
+      "blocks": {
+        "flag": {
+          "opcode": "event_whenflagclicked",
+          "next": "fetch",
+          "parent": null,
+          "inputs": {},
+          "fields": {},
+          "topLevel": true,
+          "shadow": false,
+          "x": 80,
+          "y": 60
+        },
+        "fetch": {
+          "opcode": "httpapi_fetchJson",
+          "next": "seth",
+          "parent": "flag",
+          "inputs": {
+            "URL": [1, "url"]
+          },
+          "fields": {},
+          "topLevel": false,
+          "shadow": false
+        },
+        "url": {
+          "opcode": "text",
+          "inputs": {},
+          "fields": {"TEXT": ["https://catfact.ninja/fact"]},
+          "shadow": true
+        },
+        "seth": {
+          "opcode": "data_setvariableto",
+          "next": "setfact",
+          "parent": "fetch",
+          "inputs": {"VALUE": [3, "lasth"]},
+          "fields": {"VARIABLE": ["h", "h"]},
+          "shadow": false,
+          "topLevel": false
+        },
+        "lasth": {"opcode": "httpapi_lastHandle","inputs": {},"fields": {},"shadow": false},
+        "setfact": {
+          "opcode": "data_setvariableto",
+          "next": "sayfact",
+          "parent": "seth",
+          "inputs": {
+            "VALUE": [3, "getfact"]
+          },
+          "fields": {"VARIABLE": ["fact", "fact"]},
+          "shadow": false,
+          "topLevel": false
+        },
+        "getfact": {
+          "opcode": "httpapi_getProperty",
+          "inputs": {
+            "KEY": [1, "factkey"],
+            "HANDLE": [3, "varh"]
+          },
+          "fields": {},
+          "shadow": false
+        },
+        "factkey": {"opcode": "text","fields": {"TEXT": ["fact"]},"shadow": true},
+        "varh": {"opcode": "data_variable","fields": {"VARIABLE": ["h", "h"]},"shadow": true},
+        "sayfact": {
+          "opcode": "looks_sayforsecs",
+          "inputs": {
+            "MESSAGE": [3, "varfact"],
+            "SECS": [1, "sec"]
+          },
+          "fields": {},
+          "next": null,
+          "parent": "setfact",
+          "shadow": false
+        },
+        "varfact": {"opcode": "data_variable","fields": {"VARIABLE": ["fact", "fact"]},"shadow": true},
+        "sec": {"opcode": "math_number","fields": {"NUM": ["5"]},"shadow": true}
+      },
+      "currentCostume": 0,
+      "costumes": [
+        {
+          "assetId": "bcf454acf82e4504149f7ffe07081dbc",
+          "md5ext": "bcf454acf82e4504149f7ffe07081dbc.svg",
+          "dataFormat": "svg",
+          "name": "costume1",
+          "rotationCenterX": 48,
+          "rotationCenterY": 50
+        },
+        {
+          "assetId": "0fb9be3e8397c983338cb71dc84d0b25",
+          "md5ext": "0fb9be3e8397c983338cb71dc84d0b25.svg",
+          "dataFormat": "svg",
+          "name": "costume2",
+          "rotationCenterX": 46,
+          "rotationCenterY": 53
+        }
+      ],
+      "sounds": [
+        {
+          "assetId": "83c36d806dc92327b9e7049a565c6bff",
+          "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav",
+          "dataFormat": "wav",
+          "name": "Meow",
+          "rate": 22050,
+          "sampleCount": 18688,
+          "format": ""
+        }
+      ],
+      "volume": 100,
+      "layerOrder": 1,
+      "visible": true,
+      "x": 0,
+      "y": 0,
+      "size": 100,
+      "direction": 90,
+      "draggable": false,
+      "rotationStyle": "all around"
+    }
+  ]
+}

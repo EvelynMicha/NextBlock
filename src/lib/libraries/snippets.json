@@ -1,0 +1,50 @@
+[
+    {
+        "id": "easyplug-loop",
+        "name": "EasyPlug sensor loop",
+        "description": "Read EasyPlug sensors in a loop, say them, then wait.",
+        "tags": ["snippets", "easyplug", "loop"],
+        "rawURL": "static/snippets/sensor-loop.svg",
+        "projectUrl": "static/snippets/sensor-loop.json"
+    },
+    {
+        "id": "arrow-keys-move",
+        "name": "Move with arrow keys",
+        "description": "Move with if + key pressed blocks using the arrow keys.",
+        "tags": ["snippets", "movement", "keys"],
+        "rawURL": "static/snippets/arrow-keys.svg",
+        "projectUrl": "static/snippets/arrow-keys.json"
+    },
+    {
+        "id": "advice-api",
+        "name": "Advice API",
+        "description": "Fetch random advice from api.adviceslip.com and say it.",
+        "tags": ["snippets", "api", "http"],
+        "rawURL": "static/snippets/advice-api.svg",
+        "projectUrl": "static/snippets/advice-api.json"
+    },
+    {
+        "id": "cat-facts",
+        "name": "Cat Facts API",
+        "description": "Fetch a random cat fact from catfact.ninja and say it.",
+        "tags": ["snippets", "api", "http", "animals"],
+        "rawURL": "static/snippets/cat-facts.svg",
+        "projectUrl": "static/snippets/cat-facts.json"
+    },
+    {
+        "id": "number-trivia",
+        "name": "Trivia Quiz (Animals)",
+        "description": "Fetch 1 easy animal multiple-choice question from OpenTDB.",
+        "tags": ["snippets", "api", "http", "quiz"],
+        "rawURL": "static/snippets/number-trivia.svg",
+        "projectUrl": "static/snippets/number-trivia.json"
+    },
+    {
+        "id": "pokemon-api",
+        "name": "Pokémon API",
+        "description": "Type a Pokémon name and read its height/weight from pokeapi.co.",
+        "tags": ["snippets", "api", "http", "games"],
+        "rawURL": "static/snippets/pokemon.svg",
+        "projectUrl": "static/snippets/pokemon.json"
+    }
+]

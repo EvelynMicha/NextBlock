@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Backdrop Lab",
+        "tags": [
+            "local"
+        ],
+        "assetId": "36f929c53fb031c16061f4ecbeeb66c8",
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "md5ext": "36f929c53fb031c16061f4ecbeeb66c8.svg",
+        "rotationCenterX": 480,
+        "rotationCenterY": 360,
+        "rawURL": "static/custom-library/backdrop-lab.svg",
+        "layerOrder": 1
+    },
+    {
+        "name": "Backdrop Road",
+        "tags": [
+            "local"
+        ],
+        "assetId": "6cf7181c9ce118fc352fc36b6e1d83fc",
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "md5ext": "6cf7181c9ce118fc352fc36b6e1d83fc.svg",
+        "rotationCenterX": 480,
+        "rotationCenterY": 360,
+        "rawURL": "static/custom-library/backdrop-road.svg",
+        "layerOrder": 2
+    },
+    {
+        "name": "Custom Backdrop1",
+        "tags": [
+            "local"
+        ],
+        "assetId": "5ac9b79e99388890ba5f058952c01d20",
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "md5ext": "5ac9b79e99388890ba5f058952c01d20.svg",
+        "rotationCenterX": 480,
+        "rotationCenterY": 360,
+        "rawURL": "static/custom-library/custom-backdrop1.svg",
+        "layerOrder": 3
+    }
+]
