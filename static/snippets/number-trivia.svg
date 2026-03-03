@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90">
+  <rect width="120" height="90" rx="8" fill="#264653"/>
+  <text x="12" y="38" font-family="Arial, sans-serif" font-size="20" fill="#e9c46a" font-weight="700">Trivia</text>
+  <text x="12" y="58" font-family="Arial, sans-serif" font-size="12" fill="#f4a261">Animals · Easy</text>
+  <circle cx="95" cy="45" r="18" fill="#2a9d8f"/>
+  <text x="88" y="51" font-family="Arial, sans-serif" font-size="16" fill="#fff" font-weight="700">?</text>
+</svg>

@@ -1,0 +1,239 @@
+{
+  "meta": {
+    "semver": "3.0.0",
+    "vm": "0.1.0",
+    "agent": "https://github.com/custom-scratch"
+  },
+  "targets": [
+    {
+      "isStage": true,
+      "name": "Stage",
+      "variables": {},
+      "lists": {},
+      "broadcasts": {},
+      "blocks": {},
+      "currentCostume": 0,
+      "costumes": [
+        {
+          "assetId": "cd21514d0531fdffb22204e0ec5ed84a",
+          "md5ext": "cd21514d0531fdffb22204e0ec5ed84a.svg",
+          "dataFormat": "svg",
+          "name": "Backdrop 1",
+          "rotationCenterX": 240,
+          "rotationCenterY": 180
+        }
+      ],
+      "sounds": [
+        {
+          "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+          "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+          "dataFormat": "wav",
+          "name": "Pop",
+          "rate": 11025,
+          "sampleCount": 258,
+          "format": ""
+        }
+      ],
+      "volume": 100
+    },
+    {
+      "isStage": false,
+      "name": "Advice Cat",
+      "variables": {
+        "h": ["h", ""],
+        "adviceText": ["adviceText", ""]
+      },
+      "lists": {},
+      "broadcasts": {},
+      "blocks": {
+        "whenflag": {
+          "opcode": "event_whenflagclicked",
+          "next": "fetchjson",
+          "parent": null,
+          "inputs": {},
+          "fields": {},
+          "topLevel": true,
+          "shadow": false,
+          "x": 60,
+          "y": 60
+        },
+        "fetchjson": {
+          "opcode": "httpapi_fetchJson",
+          "next": "seth",
+          "parent": "whenflag",
+          "inputs": {
+            "URL": [1, "urlshadow"]
+          },
+          "fields": {},
+          "topLevel": false,
+          "shadow": false
+        },
+        "urlshadow": {
+          "opcode": "text",
+          "parent": null,
+          "inputs": {},
+          "fields": {
+            "TEXT": ["https://api.adviceslip.com/advice"]
+          },
+          "shadow": true,
+          "topLevel": false
+        },
+        "seth": {
+          "opcode": "data_setvariableto",
+          "next": "setadvice",
+          "parent": "fetchjson",
+          "inputs": {
+            "VALUE": [3, "lasthandle"]
+          },
+          "fields": {
+            "VARIABLE": ["h", "h"]
+          },
+          "topLevel": false,
+          "shadow": false
+        },
+        "lasthandle": {
+          "opcode": "httpapi_lastHandle",
+          "inputs": {},
+          "fields": {},
+          "parent": null,
+          "shadow": false,
+          "topLevel": false
+        },
+        "setadvice": {
+          "opcode": "data_setvariableto",
+          "next": "sayadvice",
+          "parent": "seth",
+          "inputs": {
+            "VALUE": [3, "getadvice"]
+          },
+          "fields": {
+            "VARIABLE": ["adviceText", "adviceText"]
+          },
+          "topLevel": false,
+          "shadow": false
+        },
+        "getadvice": {
+          "opcode": "httpapi_getProperty",
+          "inputs": {
+            "KEY": [1, "adviceshadow"],
+            "HANDLE": [3, "getslip"]
+          },
+          "fields": {},
+          "parent": null,
+          "shadow": false,
+          "topLevel": false
+        },
+        "adviceshadow": {
+          "opcode": "text",
+          "inputs": {},
+          "fields": {
+            "TEXT": ["advice"]
+          },
+          "shadow": true
+        },
+        "getslip": {
+          "opcode": "httpapi_getProperty",
+          "inputs": {
+            "KEY": [1, "slipshadow"],
+            "HANDLE": [3, "varh"]
+          },
+          "fields": {},
+          "parent": null,
+          "shadow": false,
+          "topLevel": false
+        },
+        "slipshadow": {
+          "opcode": "text",
+          "inputs": {},
+          "fields": {
+            "TEXT": ["slip"]
+          },
+          "shadow": true
+        },
+        "varh": {
+          "opcode": "data_variable",
+          "inputs": {},
+          "fields": {
+            "VARIABLE": ["h", "h"]
+          },
+          "parent": null,
+          "shadow": true,
+          "topLevel": false
+        },
+        "sayadvice": {
+          "opcode": "looks_sayforsecs",
+          "next": null,
+          "parent": "setadvice",
+          "inputs": {
+            "MESSAGE": [3, "varadvice"],
+            "SECS": [1, "secshadow"]
+          },
+          "fields": {},
+          "topLevel": false,
+          "shadow": false
+        },
+        "varadvice": {
+          "opcode": "data_variable",
+          "inputs": {},
+          "fields": {
+            "VARIABLE": ["adviceText", "adviceText"]
+          },
+          "parent": null,
+          "shadow": true,
+          "topLevel": false
+        },
+        "secshadow": {
+          "opcode": "math_number",
+          "inputs": {},
+          "fields": {
+            "NUM": ["5"]
+          },
+          "shadow": true
+        }
+      },
+      "currentCostume": 0,
+      "costumes": [
+        {
+          "assetId": "bcf454acf82e4504149f7ffe07081dbc",
+          "md5ext": "bcf454acf82e4504149f7ffe07081dbc.svg",
+          "dataFormat": "svg",
+          "name": "costume1",
+          "rotationCenterX": 48,
+          "rotationCenterY": 50
+        },
+        {
+          "assetId": "0fb9be3e8397c983338cb71dc84d0b25",
+          "md5ext": "0fb9be3e8397c983338cb71dc84d0b25.svg",
+          "dataFormat": "svg",
+          "name": "costume2",
+          "rotationCenterX": 46,
+          "rotationCenterY": 53
+        }
+      ],
+      "sounds": [
+        {
+          "assetId": "83c36d806dc92327b9e7049a565c6bff",
+          "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav",
+          "dataFormat": "wav",
+          "name": "Meow",
+          "rate": 22050,
+          "sampleCount": 18688,
+          "format": ""
+        }
+      ],
+      "volume": 100,
+      "layerOrder": 1,
+      "visible": true,
+      "x": 0,
+      "y": 0,
+      "size": 100,
+      "direction": 90,
+      "draggable": false,
+      "rotationStyle": "all around"
+    }
+  ],
+  "extensions": ["httpapi"],
+  "monitors": [],
+  "extensionData": {},
+  "metaVersion": "1.0.0"
+}

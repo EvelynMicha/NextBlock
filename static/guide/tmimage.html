@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>Teachable Machine Image – NextBlock Guide</title>
+  <style>body{font-family:Arial,sans-serif;max-width:820px;margin:0 auto;padding:32px;color:#1f2630;}h1{margin-top:0}.card{border:1px solid #d5dbe5;border-radius:12px;padding:14px 16px;margin-bottom:14px;background:#f7f8fb}</style>
+</head>
+<body>
+  <h1>Teachable Machine Image</h1>
+  <p>Φορτώνει TM image model (Keras/.json) και κάνει classify webcam ή εικόνες της σκηνής.</p>
+  <div class="card">
+    <h2>Βήματα</h2>
+    <ol>
+      <li>Άνοιξε το extension <strong>AI Image (TM)</strong>.</li>
+      <li>Χρησιμοποίησε το block <em>load model from [upload/URL]</em> και διάλεξε το model.json από TM export.</li>
+      <li>Τρέξε <em>classify [camera]</em> και διάβασε <em>top label</em>, <em>top confidence</em>.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h2>Χρήσιμες συμβουλές</h2>
+    <ul>
+      <li>Προτίμησε μικρό input size (224px) για ταχύτερη εκτέλεση.</li>
+      <li>Σε αδύναμα μηχανήματα, βάλε sampling κάθε 200-300ms.</li>
+    </ul>
+  </div>
+</body>
+</html>

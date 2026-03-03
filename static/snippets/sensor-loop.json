@@ -1,0 +1,329 @@
+﻿{
+    "monitors":  [
+
+                 ],
+    "extensions":  [
+
+                   ],
+    "meta":  {
+                 "agent":  "https://github.com/custom-scratch",
+                 "semver":  "3.0.0",
+                 "vm":  "0.1.0"
+             },
+    "targets":  [
+                    {
+                        "currentCostume":  0,
+                        "lists":  {
+
+                                  },
+                        "volume":  100,
+                        "isStage":  true,
+                        "costumes":  [
+                                         {
+                                             "assetId":  "cd21514d0531fdffb22204e0ec5ed84a",
+                                             "dataFormat":  "svg",
+                                             "rotationCenterY":  180,
+                                             "rotationCenterX":  240,
+                                             "name":  "Backdrop 1",
+                                             "md5ext":  "cd21514d0531fdffb22204e0ec5ed84a.svg"
+                                         }
+                                     ],
+                        "name":  "Stage",
+                        "sounds":  [
+                                       {
+                                           "assetId":  "83a9787d4cb6f3b7632b4ddfebf74367",
+                                           "dataFormat":  "wav",
+                                           "sampleCount":  258,
+                                           "name":  "Pop",
+                                           "rate":  11025,
+                                           "md5ext":  "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+                                           "format":  ""
+                                       }
+                                   ],
+                        "variables":  {
+                                          "var_sensor_value":  [
+                                                                   "τιμή",
+                                                                   0
+                                                               ]
+                                      },
+                        "blocks":  {
+
+                                   },
+                        "broadcasts":  {
+
+                                       }
+                    },
+                    {
+                        "isStage":  false,
+                        "currentCostume":  0,
+                        "variables":  {
+
+                                      },
+                        "y":  0,
+                        "rotationStyle":  "all around",
+                        "size":  100,
+                        "visible":  true,
+                        "lists":  {
+
+                                  },
+                        "draggable":  false,
+                        "volume":  100,
+                        "costumes":  [
+                                         {
+                                             "rotationCenterX":  48,
+                                             "assetId":  "bcf454acf82e4504149f7ffe07081dbc",
+                                             "dataFormat":  "svg",
+                                             "rotationCenterY":  50,
+                                             "md5ext":  "bcf454acf82e4504149f7ffe07081dbc.svg",
+                                             "name":  "costume1",
+                                             "bitmapResolution":  1
+                                         },
+                                         {
+                                             "rotationCenterX":  46,
+                                             "assetId":  "0fb9be3e8397c983338cb71dc84d0b25",
+                                             "dataFormat":  "svg",
+                                             "rotationCenterY":  53,
+                                             "md5ext":  "0fb9be3e8397c983338cb71dc84d0b25.svg",
+                                             "name":  "costume2",
+                                             "bitmapResolution":  1
+                                         }
+                                     ],
+                        "direction":  90,
+                        "blocks":  {
+                                       "rand_from":  {
+                                                         "inputs":  {
+
+                                                                    },
+                                                         "topLevel":  false,
+                                                         "shadow":  true,
+                                                         "fields":  {
+                                                                        "NUM":  [
+                                                                                    "0"
+                                                                                ]
+                                                                    },
+                                                         "parent":  "pick_random",
+                                                         "opcode":  "math_number",
+                                                         "next":  null
+                                                     },
+                                       "var_reporter":  {
+                                                            "inputs":  {
+
+                                                                       },
+                                                            "topLevel":  false,
+                                                            "shadow":  false,
+                                                            "fields":  {
+                                                                           "VARIABLE":  [
+                                                                                            "τιμή",
+                                                                                            "var_sensor_value"
+                                                                                        ]
+                                                                       },
+                                                            "parent":  "join_block",
+                                                            "opcode":  "data_variable",
+                                                            "next":  null
+                                                        },
+                                       "set_variable":  {
+                                                            "inputs":  {
+                                                                           "VALUE":  [
+                                                                                         2,
+                                                                                         "pick_random"
+                                                                                     ]
+                                                                       },
+                                                            "topLevel":  false,
+                                                            "shadow":  false,
+                                                            "fields":  {
+                                                                           "VARIABLE":  [
+                                                                                            "τιμή",
+                                                                                            "var_sensor_value"
+                                                                                        ]
+                                                                       },
+                                                            "parent":  "forever_loop",
+                                                            "opcode":  "data_setvariableto",
+                                                            "next":  "say_value"
+                                                        },
+                                       "flag_event":  {
+                                                          "y":  40,
+                                                          "opcode":  "event_whenflagclicked",
+                                                          "x":  60,
+                                                          "parent":  null,
+                                                          "inputs":  {
+
+                                                                     },
+                                                          "next":  "forever_loop",
+                                                          "topLevel":  true,
+                                                          "fields":  {
+
+                                                                     },
+                                                          "shadow":  false
+                                                      },
+                                       "say_value":  {
+                                                         "inputs":  {
+                                                                        "SECS":  [
+                                                                                     1,
+                                                                                     "say_secs"
+                                                                                 ],
+                                                                        "MESSAGE":  [
+                                                                                        2,
+                                                                                        "join_block"
+                                                                                    ]
+                                                                    },
+                                                         "topLevel":  false,
+                                                         "shadow":  false,
+                                                         "fields":  {
+
+                                                                    },
+                                                         "parent":  "set_variable",
+                                                         "opcode":  "looks_sayforsecs",
+                                                         "next":  "wait_block"
+                                                     },
+                                       "say_secs":  {
+                                                        "inputs":  {
+
+                                                                   },
+                                                        "topLevel":  false,
+                                                        "shadow":  true,
+                                                        "fields":  {
+                                                                       "NUM":  [
+                                                                                   "1"
+                                                                               ]
+                                                                   },
+                                                        "parent":  "say_value",
+                                                        "opcode":  "math_number",
+                                                        "next":  null
+                                                    },
+                                       "label_text":  {
+                                                          "inputs":  {
+
+                                                                     },
+                                                          "topLevel":  false,
+                                                          "shadow":  true,
+                                                          "fields":  {
+                                                                         "TEXT":  [
+                                                                                      "Τιμή:"
+                                                                                  ]
+                                                                     },
+                                                          "parent":  "join_block",
+                                                          "opcode":  "text",
+                                                          "next":  null
+                                                      },
+                                       "rand_to":  {
+                                                       "inputs":  {
+
+                                                                  },
+                                                       "topLevel":  false,
+                                                       "shadow":  true,
+                                                       "fields":  {
+                                                                      "NUM":  [
+                                                                                  "100"
+                                                                              ]
+                                                                  },
+                                                       "parent":  "pick_random",
+                                                       "opcode":  "math_number",
+                                                       "next":  null
+                                                   },
+                                       "pick_random":  {
+                                                           "inputs":  {
+                                                                          "TO":  [
+                                                                                     1,
+                                                                                     "rand_to"
+                                                                                 ],
+                                                                          "FROM":  [
+                                                                                       1,
+                                                                                       "rand_from"
+                                                                                   ]
+                                                                      },
+                                                           "topLevel":  false,
+                                                           "shadow":  false,
+                                                           "fields":  {
+
+                                                                      },
+                                                           "parent":  "set_variable",
+                                                           "opcode":  "operator_random",
+                                                           "next":  null
+                                                       },
+                                       "forever_loop":  {
+                                                            "inputs":  {
+                                                                           "SUBSTACK":  [
+                                                                                            2,
+                                                                                            "set_variable"
+                                                                                        ]
+                                                                       },
+                                                            "topLevel":  false,
+                                                            "shadow":  false,
+                                                            "fields":  {
+
+                                                                       },
+                                                            "parent":  "flag_event",
+                                                            "opcode":  "control_forever",
+                                                            "next":  null
+                                                        },
+                                       "wait_amount":  {
+                                                           "inputs":  {
+
+                                                                      },
+                                                           "topLevel":  false,
+                                                           "shadow":  true,
+                                                           "fields":  {
+                                                                          "NUM":  [
+                                                                                      "1"
+                                                                                  ]
+                                                                      },
+                                                           "parent":  "wait_block",
+                                                           "opcode":  "math_number",
+                                                           "next":  null
+                                                       },
+                                       "join_block":  {
+                                                          "inputs":  {
+                                                                         "STRING1":  [
+                                                                                         1,
+                                                                                         "label_text"
+                                                                                     ],
+                                                                         "STRING2":  [
+                                                                                         2,
+                                                                                         "var_reporter"
+                                                                                     ]
+                                                                     },
+                                                          "topLevel":  false,
+                                                          "shadow":  false,
+                                                          "fields":  {
+
+                                                                     },
+                                                          "parent":  "say_value",
+                                                          "opcode":  "operator_join",
+                                                          "next":  null
+                                                      },
+                                       "wait_block":  {
+                                                          "inputs":  {
+                                                                         "DURATION":  [
+                                                                                          1,
+                                                                                          "wait_amount"
+                                                                                      ]
+                                                                     },
+                                                          "topLevel":  false,
+                                                          "shadow":  false,
+                                                          "fields":  {
+
+                                                                     },
+                                                          "parent":  "say_value",
+                                                          "opcode":  "control_wait",
+                                                          "next":  null
+                                                      }
+                                   },
+                        "sounds":  [
+                                       {
+                                           "assetId":  "83c36d806dc92327b9e7049a565c6bff",
+                                           "dataFormat":  "wav",
+                                           "sampleCount":  18688,
+                                           "name":  "Meow",
+                                           "rate":  22050,
+                                           "md5ext":  "83c36d806dc92327b9e7049a565c6bff.wav",
+                                           "format":  ""
+                                       }
+                                   ],
+                        "broadcasts":  {
+
+                                       },
+                        "x":  0,
+                        "name":  "EasyPlug loop"
+                    }
+                ]
+}

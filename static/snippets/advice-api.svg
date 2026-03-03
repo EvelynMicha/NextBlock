@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="372" viewBox="0 0 600 372">
+  <rect width="600" height="372" rx="26" fill="#0d72ff"/>
+  <rect x="40" y="60" width="520" height="252" rx="22" fill="#e8f3ff"/>
+  <rect x="60" y="90" width="260" height="32" rx="8" fill="#0d72ff"/>
+  <text x="70" y="113" font-family="Arial" font-size="16" fill="#fff" font-weight="700">Advice API</text>
+  <rect x="60" y="140" width="480" height="26" rx="6" fill="#0d72ff" fill-opacity="0.15"/>
+  <text x="70" y="160" font-family="Arial" font-size="15" fill="#0d72ff">https://api.adviceslip.com/advice</text>
+  <rect x="60" y="190" width="480" height="120" rx="12" fill="#fff" stroke="#0d72ff" stroke-width="2"/>
+  <text x="80" y="220" font-family="Arial" font-size="18" fill="#0d72ff" font-weight="700">When green flag clicked</text>
+  <text x="80" y="245" font-family="Arial" font-size="16" fill="#0d72ff">• fetch JSON</text>
+  <text x="80" y="270" font-family="Arial" font-size="16" fill="#0d72ff">• take slip → advice</text>
+  <text x="80" y="295" font-family="Arial" font-size="16" fill="#0d72ff">• say the advice</text>
+  <circle cx="520" cy="120" r="40" fill="#fff"/>
+  <path d="M510 100 q15 18 30 0" stroke="#0d72ff" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <circle cx="508" cy="110" r="4" fill="#0d72ff"/>
+  <circle cx="532" cy="110" r="4" fill="#0d72ff"/>
+  <rect x="62" y="62" width="12" height="12" rx="2" fill="#00c853"/>
+  <rect x="80" y="62" width="12" height="12" rx="2" fill="#ffab00"/>
+  <rect x="98" y="62" width="12" height="12" rx="2" fill="#ff5252"/>
+</svg>

@@ -1,0 +1,435 @@
+﻿{
+    "monitors":  [
+
+                 ],
+    "extensions":  [
+
+                   ],
+    "meta":  {
+                 "agent":  "https://github.com/custom-scratch",
+                 "semver":  "3.0.0",
+                 "vm":  "0.1.0"
+             },
+    "targets":  [
+                    {
+                        "currentCostume":  0,
+                        "lists":  {
+
+                                  },
+                        "volume":  100,
+                        "isStage":  true,
+                        "costumes":  [
+                                         {
+                                             "assetId":  "cd21514d0531fdffb22204e0ec5ed84a",
+                                             "dataFormat":  "svg",
+                                             "rotationCenterY":  180,
+                                             "rotationCenterX":  240,
+                                             "name":  "Backdrop 1",
+                                             "md5ext":  "cd21514d0531fdffb22204e0ec5ed84a.svg"
+                                         }
+                                     ],
+                        "name":  "Stage",
+                        "sounds":  [
+                                       {
+                                           "assetId":  "83a9787d4cb6f3b7632b4ddfebf74367",
+                                           "dataFormat":  "wav",
+                                           "sampleCount":  258,
+                                           "name":  "Pop",
+                                           "rate":  11025,
+                                           "md5ext":  "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+                                           "format":  ""
+                                       }
+                                   ],
+                        "variables":  {
+
+                                      },
+                        "blocks":  {
+
+                                   },
+                        "broadcasts":  {
+
+                                       }
+                    },
+                    {
+                        "isStage":  false,
+                        "currentCostume":  0,
+                        "variables":  {
+
+                                      },
+                        "y":  0,
+                        "rotationStyle":  "all around",
+                        "size":  100,
+                        "visible":  true,
+                        "lists":  {
+
+                                  },
+                        "draggable":  false,
+                        "volume":  100,
+                        "costumes":  [
+                                         {
+                                             "rotationCenterX":  48,
+                                             "assetId":  "bcf454acf82e4504149f7ffe07081dbc",
+                                             "dataFormat":  "svg",
+                                             "rotationCenterY":  50,
+                                             "md5ext":  "bcf454acf82e4504149f7ffe07081dbc.svg",
+                                             "name":  "costume1",
+                                             "bitmapResolution":  1
+                                         },
+                                         {
+                                             "rotationCenterX":  46,
+                                             "assetId":  "0fb9be3e8397c983338cb71dc84d0b25",
+                                             "dataFormat":  "svg",
+                                             "rotationCenterY":  53,
+                                             "md5ext":  "0fb9be3e8397c983338cb71dc84d0b25.svg",
+                                             "name":  "costume2",
+                                             "bitmapResolution":  1
+                                         }
+                                     ],
+                        "direction":  90,
+                        "blocks":  {
+                                       "key_if_right":  {
+                                                            "inputs":  {
+
+                                                                       },
+                                                            "topLevel":  false,
+                                                            "shadow":  false,
+                                                            "fields":  {
+                                                                           "KEY_OPTION":  [
+                                                                                              "right arrow"
+                                                                                          ]
+                                                                       },
+                                                            "parent":  "if_right",
+                                                            "opcode":  "sensing_keypressed",
+                                                            "next":  null
+                                                        },
+                                       "move_right":  {
+                                                          "inputs":  {
+                                                                         "DX":  [
+                                                                                    1,
+                                                                                    "right_amount"
+                                                                                ]
+                                                                     },
+                                                          "topLevel":  false,
+                                                          "shadow":  false,
+                                                          "fields":  {
+
+                                                                     },
+                                                          "parent":  "if_right",
+                                                          "opcode":  "motion_changexby",
+                                                          "next":  null
+                                                      },
+                                       "if_up":  {
+                                                     "inputs":  {
+                                                                    "CONDITION":  [
+                                                                                      2,
+                                                                                      "key_if_up"
+                                                                                  ],
+                                                                    "SUBSTACK":  [
+                                                                                     2,
+                                                                                     "move_up"
+                                                                                 ]
+                                                                },
+                                                     "topLevel":  false,
+                                                     "shadow":  false,
+                                                     "fields":  {
+
+                                                                },
+                                                     "parent":  "if_right",
+                                                     "opcode":  "control_if",
+                                                     "next":  "if_down"
+                                                 },
+                                       "forever_move":  {
+                                                            "inputs":  {
+                                                                           "SUBSTACK":  [
+                                                                                            2,
+                                                                                            "if_left"
+                                                                                        ]
+                                                                       },
+                                                            "topLevel":  false,
+                                                            "shadow":  false,
+                                                            "fields":  {
+
+                                                                       },
+                                                            "parent":  "flag_move",
+                                                            "opcode":  "control_forever",
+                                                            "next":  null
+                                                        },
+                                       "wait_short_amount":  {
+                                                                 "inputs":  {
+
+                                                                            },
+                                                                 "topLevel":  false,
+                                                                 "shadow":  true,
+                                                                 "fields":  {
+                                                                                "NUM":  [
+                                                                                            "0.15"
+                                                                                        ]
+                                                                            },
+                                                                 "parent":  "wait_short",
+                                                                 "opcode":  "math_number",
+                                                                 "next":  null
+                                                             },
+                                       "move_down":  {
+                                                         "inputs":  {
+                                                                        "DY":  [
+                                                                                   1,
+                                                                                   "down_amount"
+                                                                               ]
+                                                                    },
+                                                         "topLevel":  false,
+                                                         "shadow":  false,
+                                                         "fields":  {
+
+                                                                    },
+                                                         "parent":  "if_down",
+                                                         "opcode":  "motion_changeyby",
+                                                         "next":  null
+                                                     },
+                                       "right_amount":  {
+                                                            "inputs":  {
+
+                                                                       },
+                                                            "topLevel":  false,
+                                                            "shadow":  true,
+                                                            "fields":  {
+                                                                           "NUM":  [
+                                                                                       "10"
+                                                                                   ]
+                                                                       },
+                                                            "parent":  "move_right",
+                                                            "opcode":  "math_number",
+                                                            "next":  null
+                                                        },
+                                       "key_if_left":  {
+                                                           "inputs":  {
+
+                                                                      },
+                                                           "topLevel":  false,
+                                                           "shadow":  false,
+                                                           "fields":  {
+                                                                          "KEY_OPTION":  [
+                                                                                             "left arrow"
+                                                                                         ]
+                                                                      },
+                                                           "parent":  "if_left",
+                                                           "opcode":  "sensing_keypressed",
+                                                           "next":  null
+                                                       },
+                                       "move_up":  {
+                                                       "inputs":  {
+                                                                      "DY":  [
+                                                                                 1,
+                                                                                 "up_amount"
+                                                                             ]
+                                                                  },
+                                                       "topLevel":  false,
+                                                       "shadow":  false,
+                                                       "fields":  {
+
+                                                                  },
+                                                       "parent":  "if_up",
+                                                       "opcode":  "motion_changeyby",
+                                                       "next":  null
+                                                   },
+                                       "wait_short":  {
+                                                          "inputs":  {
+                                                                         "DURATION":  [
+                                                                                          1,
+                                                                                          "wait_short_amount"
+                                                                                      ]
+                                                                     },
+                                                          "topLevel":  false,
+                                                          "shadow":  false,
+                                                          "fields":  {
+
+                                                                     },
+                                                          "parent":  "if_down",
+                                                          "opcode":  "control_wait",
+                                                          "next":  null
+                                                      },
+                                       "if_down":  {
+                                                       "inputs":  {
+                                                                      "CONDITION":  [
+                                                                                        2,
+                                                                                        "key_if_down"
+                                                                                    ],
+                                                                      "SUBSTACK":  [
+                                                                                       2,
+                                                                                       "move_down"
+                                                                                   ]
+                                                                  },
+                                                       "topLevel":  false,
+                                                       "shadow":  false,
+                                                       "fields":  {
+
+                                                                  },
+                                                       "parent":  "if_up",
+                                                       "opcode":  "control_if",
+                                                       "next":  "wait_short"
+                                                   },
+                                       "key_if_up":  {
+                                                         "inputs":  {
+
+                                                                    },
+                                                         "topLevel":  false,
+                                                         "shadow":  false,
+                                                         "fields":  {
+                                                                        "KEY_OPTION":  [
+                                                                                           "up arrow"
+                                                                                       ]
+                                                                    },
+                                                         "parent":  "if_up",
+                                                         "opcode":  "sensing_keypressed",
+                                                         "next":  null
+                                                     },
+                                       "if_left":  {
+                                                       "inputs":  {
+                                                                      "CONDITION":  [
+                                                                                        2,
+                                                                                        "key_if_left"
+                                                                                    ],
+                                                                      "SUBSTACK":  [
+                                                                                       2,
+                                                                                       "move_left"
+                                                                                   ]
+                                                                  },
+                                                       "topLevel":  false,
+                                                       "shadow":  false,
+                                                       "fields":  {
+
+                                                                  },
+                                                       "parent":  "forever_move",
+                                                       "opcode":  "control_if",
+                                                       "next":  "if_right"
+                                                   },
+                                       "move_left":  {
+                                                         "inputs":  {
+                                                                        "DX":  [
+                                                                                   1,
+                                                                                   "left_amount"
+                                                                               ]
+                                                                    },
+                                                         "topLevel":  false,
+                                                         "shadow":  false,
+                                                         "fields":  {
+
+                                                                    },
+                                                         "parent":  "if_left",
+                                                         "opcode":  "motion_changexby",
+                                                         "next":  null
+                                                     },
+                                       "flag_move":  {
+                                                         "y":  40,
+                                                         "opcode":  "event_whenflagclicked",
+                                                         "x":  60,
+                                                         "parent":  null,
+                                                         "inputs":  {
+
+                                                                    },
+                                                         "next":  "forever_move",
+                                                         "topLevel":  true,
+                                                         "fields":  {
+
+                                                                    },
+                                                         "shadow":  false
+                                                     },
+                                       "up_amount":  {
+                                                         "inputs":  {
+
+                                                                    },
+                                                         "topLevel":  false,
+                                                         "shadow":  true,
+                                                         "fields":  {
+                                                                        "NUM":  [
+                                                                                    "10"
+                                                                                ]
+                                                                    },
+                                                         "parent":  "move_up",
+                                                         "opcode":  "math_number",
+                                                         "next":  null
+                                                     },
+                                       "if_right":  {
+                                                        "inputs":  {
+                                                                       "CONDITION":  [
+                                                                                         2,
+                                                                                         "key_if_right"
+                                                                                     ],
+                                                                       "SUBSTACK":  [
+                                                                                        2,
+                                                                                        "move_right"
+                                                                                    ]
+                                                                   },
+                                                        "topLevel":  false,
+                                                        "shadow":  false,
+                                                        "fields":  {
+
+                                                                   },
+                                                        "parent":  "if_left",
+                                                        "opcode":  "control_if",
+                                                        "next":  "if_up"
+                                                    },
+                                       "left_amount":  {
+                                                           "inputs":  {
+
+                                                                      },
+                                                           "topLevel":  false,
+                                                           "shadow":  true,
+                                                           "fields":  {
+                                                                          "NUM":  [
+                                                                                      "-10"
+                                                                                  ]
+                                                                      },
+                                                           "parent":  "move_left",
+                                                           "opcode":  "math_number",
+                                                           "next":  null
+                                                       },
+                                       "down_amount":  {
+                                                           "inputs":  {
+
+                                                                      },
+                                                           "topLevel":  false,
+                                                           "shadow":  true,
+                                                           "fields":  {
+                                                                          "NUM":  [
+                                                                                      "-10"
+                                                                                  ]
+                                                                      },
+                                                           "parent":  "move_down",
+                                                           "opcode":  "math_number",
+                                                           "next":  null
+                                                       },
+                                       "key_if_down":  {
+                                                           "inputs":  {
+
+                                                                      },
+                                                           "topLevel":  false,
+                                                           "shadow":  false,
+                                                           "fields":  {
+                                                                          "KEY_OPTION":  [
+                                                                                             "down arrow"
+                                                                                         ]
+                                                                      },
+                                                           "parent":  "if_down",
+                                                           "opcode":  "sensing_keypressed",
+                                                           "next":  null
+                                                       }
+                                   },
+                        "sounds":  [
+                                       {
+                                           "assetId":  "83c36d806dc92327b9e7049a565c6bff",
+                                           "dataFormat":  "wav",
+                                           "sampleCount":  18688,
+                                           "name":  "Meow",
+                                           "rate":  22050,
+                                           "md5ext":  "83c36d806dc92327b9e7049a565c6bff.wav",
+                                           "format":  ""
+                                       }
+                                   ],
+                        "broadcasts":  {
+
+                                       },
+                        "x":  0,
+                        "name":  "Arrow keys"
+                    }
+                ]
+}
