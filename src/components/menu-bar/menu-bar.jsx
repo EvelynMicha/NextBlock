@@ -252,17 +252,9 @@ class MenuBar extends React.Component {
     }
     handleSetMode (mode) {
         return () => {
-            // Turn on/off filters for modes.
-            if (mode === '1920') {
-                document.documentElement.style.filter = 'brightness(.9)contrast(.8)sepia(1.0)';
-                document.documentElement.style.height = '100%';
-            } else if (mode === '1990') {
-                document.documentElement.style.filter = 'hue-rotate(40deg)';
-                document.documentElement.style.height = '100%';
-            } else {
-                document.documentElement.style.filter = '';
-                document.documentElement.style.height = '';
-            }
+            // Turn off any legacy time-travel filters unconditionally.
+            document.documentElement.style.filter = '';
+            document.documentElement.style.height = '';
 
             // Change logo for modes
             if (mode === '1990') {
