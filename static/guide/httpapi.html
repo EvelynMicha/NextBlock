@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>HTTP / API – NextBlock Guide</title>
-  <style>body{font-family:Arial,sans-serif;max-width:820px;margin:0 auto;padding:32px;color:#1f2630;}h1{margin-top:0}.card{border:1px solid #d5dbe5;border-radius:12px;padding:14px 16px;margin-bottom:14px;background:#f7f8fb}</style>
+  <style>body{font-family:Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px;color:#1f2630;}h1{margin-top:0}.card{border:1px solid #d5dbe5;border-radius:12px;padding:14px 16px;margin-bottom:14px;background:#f7f8fb}code{background:#eef2ff;padding:2px 4px;border-radius:4px}</style>
 </head>
 <body>
   <h1>HTTP / API</h1>
-  <p>Απλά blocks για fetch JSON/text από δημόσια APIs.</p>
+  <p>Κάνει αιτήματα GET σε δημόσια APIs και επιστρέφει JSON ή κείμενο.</p>
   <div class="card">
-    <h2>Παράδειγμα (adviceslip)</h2>
+    <h2>Βήματα</h2>
     <ol>
-      <li><em>fetch JSON from https://api.adviceslip.com/advice</em></li>
-      <li><em>set [h v] to (last json handle)</em></li>
-      <li><em>set [adviceText v] to (property [advice] of (property [slip] of (h)))</em></li>
-      <li><em>say (adviceText) for 5 seconds</em></li>
+      <li>Βάλε URL στο block <em>fetch url [ ]</em>.</li>
+      <li>Χρησιμοποίησε <em>with header key:value</em> αν χρειάζονται headers.</li>
+      <li>Διάβασε την απάντηση με <em>response body</em> (κείμενο) ή <em>response json [path]</em>.</li>
+      <li>Έλεγξε <em>status code</em> για επιτυχία (200).</li>
     </ol>
   </div>
   <div class="card">
     <h2>Συμβουλές</h2>
     <ul>
-      <li>Χρησιμοποίησε HTTPS URLs.</li>
-      <li>Οι κλήσεις είναι CORS-limited: χρειάζεται public API με CORS open.</li>
+      <li>Πρέπει το endpoint να επιτρέπει CORS.</li>
+      <li>Για μεγάλες απαντήσεις, φιλτράρισε με JSON path (π.χ. <code>weather[0].temperature</code>).</li>
     </ul>
   </div>
 </body>

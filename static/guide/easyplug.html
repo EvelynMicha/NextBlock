@@ -14,54 +14,48 @@
 </head>
 <body>
   <h1>EasyPlug</h1>
-  <p>Extension για το EasyPlug shield: WebSerial (USB) ή BLE UART. Pins, LCD (I2C), TM1637.</p>
+  <p>Extension για το EasyPlug shield: WebSerial (USB) + Radio (χωρίς Bluetooth). Έλεγχος pins, LCD1602 (I2C), TM1637 και ανταλλαγή μηνυμάτων μέσω radio.</p>
 
   <div class="card">
     <h2>Firmware</h2>
-    <p>Κατέβασε το firmware και φλαςάρισε το micro:bit που κουμπώνει στο EasyPlug:</p>
-    <p><a href="../firmware/microbit-nextblock_easyplug_super.hex" download>Κατέβασε microbit-nextblock_easyplug_super.hex</a></p>
-    <p>Οδηγίες flash: σύνδεση USB → drag &amp; drop στο <code>MICROBIT</code> → περίμενε να ολοκληρωθεί.</p>
-  </div>
-
-  <div class="card">
-    <h2>Σύνδεση</h2>
+    <ul>
+      <li><a href="../firmware/microbit-nextblock_easyplug_radio.hex" download>microbit-nextblock_easyplug_radio.hex</a></li>
+    </ul>
     <ol>
-      <li>Άνοιξε το NextBlock και πρόσθεσε το extension <strong>EasyPlug Super</strong>.</li>
-      <li>Πάτησε <em>connect (USB)</em> (WebSerial) ή <em>connect (Bluetooth)</em> για BLE.</li>
-      <li>Το block <em>easyplug connected?</em> πρέπει να γίνει true.</li>
+      <li>Σύνδεσε micro:bit με USB.</li>
+      <li>Κατέβασε το .hex και αντέγραψέ το στον δίσκο MICROBIT.</li>
+      <li>Μετά το flash άνοιξε το NextBlock, κάνε <strong>Σύνδεση</strong> μέσω WebSerial.</li>
     </ol>
   </div>
 
   <div class="card">
-    <h2>Βασικά blocks</h2>
+    <h2>Ραδιο-εντολές</h2>
     <ul>
-      <li><code>digital write [PIN] to [0/1]</code>, <code>digital read [PIN]</code></li>
-      <li><code>analog write [PIN] to (0-1023)</code>, <code>analog read [PIN]</code></li>
-      <li>LCD: init διεύθυνση, show string/number, clear, on/off</li>
-      <li>TM1637: init (CLK=P2, DIO=P1, brt=7, digits=4), show number/hex/digit/DP, clear/on/off</li>
-      <li>Temperature reporter: <code>temperature (°C)</code></li>
-      <li>LED helper: <code>set LED [on/off] on pin [PIN]</code></li>
+      <li><strong>set radio group [n]</strong> – ορίζει group (0–255).</li>
+      <li><strong>radio send string [text]</strong> / <strong>radio send number [n]</strong> – στέλνει μήνυμα.</li>
+      <li><strong>radio has message?</strong> – boolean, αν υπάρχει ουρά.</li>
+      <li><strong>radio receive</strong> – επιστρέφει το παλιότερο ληφθέν μήνυμα και το αφαιρεί.</li>
+    </ul>
+    <p>Στο firmware προστέθηκαν εντολές <code>RADIOSET:&lt;group&gt;</code>, <code>RADIOSEND:&lt;payload&gt;</code>, και τα εισερχόμενα στέλνονται πίσω στη σειριακή ως <code>RADIO:&lt;payload&gt;</code>.</p>
+  </div>
+
+  <div class="card">
+    <h2>Pins / LCD / TM1637</h2>
+    <ul>
+      <li>Ψηφιακά: <code>DW:P0:1</code>, <code>DR:P0?</code></li>
+      <li>Αναλογικά: <code>AW:P1:512</code>, <code>AR:P1?</code></li>
+      <li>LCD1602: <code>LCDINIT:39</code>, <code>LCDSTR:39:0:0:Hello</code>, <code>LCDNUM:39:0:1:123</code>, <code>LCDCLR</code>, <code>LCDON</code>, <code>LCDOFF</code></li>
+      <li>TM1637 (CLK=P2, DIO=P1 default): <code>TMINIT:P2:P1:7:4</code>, <code>TMNUM:1234</code>, <code>TMHEX:0x1A2B</code>, <code>TMBIT:pos:digit</code>, <code>TMDP:pos:1</code>, <code>TMCLEAR</code>, <code>TMON</code>, <code>TMOFF</code></li>
+      <li>Αισθητήρας θερμοκρασίας: <code>SENSE:TEMP?</code> → <code>SENSE:TEMP:&lt;val&gt;</code></li>
     </ul>
   </div>
 
   <div class="card">
-    <h2>Πρωτόκολλο (USB/BLE)</h2>
+    <h2>Συμβουλές</h2>
     <ul>
-      <li><code>DW:&lt;pin&gt;:&lt;0|1&gt;</code>, <code>DR:&lt;pin&gt;?</code> → <code>DR:&lt;pin&gt;:&lt;0|1&gt;</code></li>
-      <li><code>AW:&lt;pin&gt;:&lt;0-1023&gt;</code>, <code>AR:&lt;pin&gt;?</code> → <code>AR:&lt;pin&gt;:&lt;value&gt;</code></li>
-      <li><code>SENSE:TEMP?</code> → <code>SENSE:TEMP:&lt;val&gt;</code></li>
-      <li>LCD: <code>LCDINIT</code>, <code>LCDSTR</code>, <code>LCDNUM</code>, <code>LCDCLR</code>, <code>LCDON/OFF</code></li>
-      <li>TM1637: <code>TMINIT</code>, <code>TMNUM</code>, <code>TMHEX</code>, <code>TMBIT</code>, <code>TMDP</code>, <code>TMCLEAR</code>, <code>TMON/TMOFF</code></li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>Πινάκια (συμβουλές)</h2>
-    <ul>
-      <li>Digital: P0, P1, P2, P3, P4, P5, P6, P7, P8, P10, P11, P12.</li>
-      <li>Analog: P0, P1, P2, P10.</li>
-      <li>LCD: διεύθυνση συνήθως 39 (0x27).</li>
-      <li>TM1637: default CLK=P2, DIO=P1.</li>
+      <li>Απενεργοποιήσαμε Bluetooth στο firmware για σταθερότητα. Χρησιμοποίησε USB + WebSerial.</li>
+      <li>Το radio group default είναι 1. Αν υπάρχουν πολλά micro:bit στον ίδιο χώρο, όρισε διαφορετικά group.</li>
+      <li>Για TM1637 / LCD χρειάζονται τα αντίστοιχα MakeCode packages (I2C_LCD1602, TM1637) όταν κάνεις build custom firmware.</li>
     </ul>
   </div>
 </body>

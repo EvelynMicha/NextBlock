@@ -4,73 +4,43 @@
   <meta charset="UTF-8">
   <title>Maqueen Plus V2 – NextBlock Guide</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px; color: #1f2630; }
-    h1, h2 { margin-top: 0; }
-    .card { border: 1px solid #d5dbe5; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; background: #f7f8fb; }
-    code { background: #eef2ff; padding: 2px 4px; border-radius: 4px; }
-    a { color: #0d5fe5; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    body{font-family:Arial,sans-serif;max-width:960px;margin:0 auto;padding:32px;color:#1f2630;}
+    h1,h2{margin-top:0;}
+    .card{border:1px solid #d5dbe5;border-radius:12px;padding:14px 16px;margin-bottom:14px;background:#f7f8fb;}
+    code{background:#eef2ff;padding:2px 4px;border-radius:4px;}
   </style>
 </head>
 <body>
   <h1>Maqueen Plus V2</h1>
-  <p>BLE UART extension για έλεγχο κίνησης, LEDs, line sensors, ultrasonic και IR.</p>
-
-  <div class="card">
-    <h2>Firmware</h2>
-    <p>Φόρτωσε στο micro:bit (πάνω στο Maqueen) το αρχείο <code>maqueen-plus-v2.hex</code>. Θα το βρεις μόλις προστεθεί στη σελίδα firmware:</p>
-    <p><a href="../firmware/index.html">Σελίδα firmware</a></p>
-    <p>Σύντομες οδηγίες flash: σύνδεσε USB → σύρε το .hex στο drive <code>MICROBIT</code> → περίμενε να σταματήσει να αναβοσβήνει το LED.</p>
-  </div>
+  <p>Έλεγχος του ρομποτακίου μέσω BLE UART: κίνηση, LEDs, αισθητήρες γραμμής, υπερήχων και IR.</p>
 
   <div class="card">
     <h2>Σύνδεση</h2>
     <ol>
-      <li>Άνοιξε το NextBlock και πρόσθεσε το extension <strong>Maqueen Plus</strong>.</li>
-      <li>Πάτησε <em>connect (Bluetooth)</em> και επίλεξε το micro:bit.</li>
-      <li>Όταν το block <em>maqueen connected?</em> γίνει true, είσαι έτοιμος.</li>
+      <li>Άνοιξε NextBlock και πάτησε <strong>Σύνδεση</strong> στο extension.</li>
+      <li>Επίλεξε το micro:bit (BLE).</li>
+      <li>Περίμενε το μήνυμα <em>PONG</em> από την εντολή <code>PING?</code> για να σιγουρευτείς ότι είναι έτοιμο.</li>
     </ol>
   </div>
 
   <div class="card">
-    <h2>Blocks (MVP)</h2>
+    <h2>Εντολές / Blocks</h2>
     <ul>
-      <li>Κίνηση: <code>set [motor L/R/both] [forward/backward] speed (0-255)</code>, <code>stop [motor]</code></li>
-      <li>LEDs: <code>front LED [left/right/both] [on/off]</code></li>
-      <li>Line sensors: <code>line sensor [L1/L2/M/R1/R2] state</code>, <code>line sensor [L1/L2/M/R1/R2] analog</code></li>
-      <li>Ultrasonic: <code>distance (cm)</code></li>
-      <li>Info: <code>firmware version</code>, <code>last IR code</code></li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>Πρωτόκολλο (BLE UART)</h2>
-    <ul>
-      <li><code>MOTOR:&lt;L|R|B&gt;:&lt;F|B&gt;:&lt;0-255&gt;</code></li>
-      <li><code>STOP:&lt;L|R|B&gt;</code></li>
-      <li><code>LED:&lt;L|R|B&gt;:&lt;0|1&gt;</code></li>
-      <li><code>LINE?:&lt;L1|L2|M|R1|R2&gt;</code> → <code>LINE:&lt;id&gt;:&lt;0|1&gt;</code></li>
-      <li><code>LINEDATA?:&lt;...&gt;</code> → <code>LINEDATA:&lt;id&gt;:&lt;value&gt;</code></li>
-      <li><code>ULTRA?</code> → <code>ULTRA:&lt;mm&gt;</code></li>
-      <li><code>VERSION?</code> → <code>VER:&lt;string&gt;</code></li>
-      <li><code>IR:&lt;code&gt;</code> (event σε αλλαγή)</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>Default pins</h2>
-    <ul>
-      <li>Ultrasonic: P13 (trig), P14 (echo)</li>
-      <li>Line sensors: L1/L2/M/R1/R2 (όπως στο firmware)</li>
-      <li>RGB strip: απενεργοποιημένα blocks στη συγκεκριμένη έκδοση</li>
+      <li><strong>Μοτέρ:</strong> <code>MOTOR:L|R|B:F|B:speed</code>, <code>STOP:L|R|B</code></li>
+      <li><strong>LEDs:</strong> <code>LED:L|R|B:1|0</code></li>
+      <li><strong>Line sensors:</strong> <code>LINE?:L2|L1|M|R1|R2</code>, <code>LINEDATA?:...</code></li>
+      <li><strong>Ultrasonic:</strong> <code>ULTRA?</code> → χιλιοστά</li>
+      <li><strong>IR:</strong> γεγονός <code>IR:&lt;code&gt;</code> όταν αλλάζει.</li>
+      <li><strong>Έκδοση:</strong> <code>VERSION?</code></li>
     </ul>
   </div>
 
   <div class="card">
     <h2>Συμβουλές</h2>
     <ul>
-      <li>Αν δεν παίρνεις απάντηση στο <code>PING?</code>, ξανακάνε pairing.</li>
-      <li>Για IR remote, το <code>last IR code</code> ενημερώνεται μόνο σε αλλαγή κωδικού.</li>
+      <li>Η προκαθορισμένη φωτεινότητα LEDs είναι 40, μπορείς να την αλλάξεις με <code>setBrightness</code>.</li>
+      <li>Το radio δεν χρησιμοποιείται εδώ· μόνο BLE.</li>
+      <li>Για σταθερή λειτουργία, κράτα το micro:bit φορτισμένο και κοντά στον υπολογιστή.</li>
     </ul>
   </div>
 </body>
