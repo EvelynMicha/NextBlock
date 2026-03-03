@@ -76,6 +76,12 @@ const baseConfig = new ScratchWebpackConfigBuilder(
                 context: 'node_modules/scratch-vm/dist/web',
                 from: 'extension-worker.{js,js.map}',
                 noErrorOnMissing: true
+            },
+            {
+                // fallback: use local checked-out vm build if node_modules package lacks dist files
+                context: '../scratch-vm/dist/web',
+                from: 'extension-worker.{js,js.map}',
+                noErrorOnMissing: true
             }
         ]
     }));

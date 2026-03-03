@@ -16,6 +16,32 @@
     <meta name="google" value="notranslate">
     <link rel="shortcut icon" href="static/favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <!-- Hard override to neutralize any accidental color filters/time‑travel tints -->
+    <style id="nextblock-filter-reset">
+      html, body, #app, .app, .page-wrapper, .body-wrapper, .stage-wrapper, .stage, .stage-canvas-wrapper, .target-pane, .sprite-selector, .sprite-selector-scroll-outer {
+        filter: none !important;
+        -webkit-filter: none !important;
+      }
+      body { background: #E5F0FF !important; }
+      .stage-wrapper, .stage-canvas-wrapper, .stage { background: #FFFFFF !important; }
+      .sprite-selector, .target-pane { background: #E9F1FC !important; }
+    </style>
+
+    <script>
+      (function () {
+        const clearFilter = () => {
+          const doc = document.documentElement;
+          if (!doc) return;
+          if (doc.style && doc.style.filter) doc.style.filter = '';
+          if (doc.style && doc.style.height === '100%') doc.style.height = '';
+        };
+        clearFilter();
+        const mo = new MutationObserver(clearFilter);
+        mo.observe(document.documentElement, {attributes: true, attributeFilter: ['style']});
+        window.addEventListener('load', clearFilter);
+      })();
+    </script>
   </head>
   <body>
     <% if (htmlWebpackPlugin.options.gtm_id) { %>
