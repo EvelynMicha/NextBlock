@@ -12,14 +12,18 @@
     <div id="app"></div>
     <script>
       // Force-clear any colour filters that might have been left behind by modes
-      const clearFilters = () => {
-        document.documentElement.style.filter = '';
-        document.documentElement.style.height = '';
-        document.body.style.filter = '';
-      };
-      clearFilters();
-      setTimeout(clearFilters, 200);
-      setTimeout(clearFilters, 1000);
+      (function () {
+        const clearFilters = () => {
+          document.documentElement.style.filter = '';
+          document.documentElement.style.height = '';
+          document.body.style.filter = '';
+        };
+        clearFilters();
+        setTimeout(clearFilters, 200);
+        setTimeout(clearFilters, 1000);
+        const observer = new MutationObserver(clearFilters);
+        observer.observe(document.documentElement, {attributes: true, attributeFilter: ['style']});
+      })();
     </script>
   </body>
 </html>
