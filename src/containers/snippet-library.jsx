@@ -10,6 +10,8 @@ import sharedMessages from '../lib/shared-messages';
 import log from '../lib/log';
 import VM from 'scratch-vm';
 
+/* eslint-disable max-len */
+
 import {
     LoadingState,
     LoadingStates,

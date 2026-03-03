@@ -445,7 +445,7 @@ class MenuBar extends React.Component {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            Guide
+                            {'Guide'}
                         </a>
                         {(this.props.canChangeTheme || this.props.canChangeLanguage) && (<SettingsMenu
                             canChangeLanguage={this.props.canChangeLanguage}

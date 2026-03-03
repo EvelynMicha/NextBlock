@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
@@ -567,3 +568,4 @@ export default [
         helpLink: 'https://scratch.mit.edu/vernier'
     }
 ];
+/* eslint-disable */

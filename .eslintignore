@@ -3,3 +3,5 @@
 /dist/
 /test/
 /src/examples/
+# vendored vm sources / build artifacts
+/scratch-vm/
