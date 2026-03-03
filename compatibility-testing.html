@@ -9,6 +9,16 @@
     <title>NextBlock: Compatibility Testing</title>
   <script defer src="compatibilitytesting.js"></script></head>
   <body>
-    
+    <div id="app"></div>
+    <script>
+      const clearFilters = () => {
+        document.documentElement.style.filter = '';
+        document.documentElement.style.height = '';
+        document.body.style.filter = '';
+      };
+      clearFilters();
+      setTimeout(clearFilters, 200);
+      setTimeout(clearFilters, 1000);
+    </script>
   </body>
 </html>
