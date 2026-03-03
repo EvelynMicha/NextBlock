@@ -445,18 +445,41 @@ class Scratch3Easyplug {
                     {text: 'P6', value: 'P6'},
                     {text: 'P7', value: 'P7'},
                     {text: 'P8', value: 'P8'},
+                    {text: 'P9', value: 'P9'},
                     {text: 'P10', value: 'P10'},
                     {text: 'P11', value: 'P11'},
-                    {text: 'P12', value: 'P12'}
+                    {text: 'P12', value: 'P12'},
+                    {text: 'P13', value: 'P13'},
+                    {text: 'P14', value: 'P14'},
+                    {text: 'P15', value: 'P15'},
+                    {text: 'P16', value: 'P16'},
+                    {text: 'P19', value: 'P19'},
+                    {text: 'P20', value: 'P20'}
                 ],
                 digitalLevelMenu: [
                     {text: '1', value: '1'},
                     {text: '0', value: '0'}
                 ],
                 analogPinMenu: [
+                    {text: 'P0', value: 'P0'},
                     {text: 'P1', value: 'P1'},
                     {text: 'P2', value: 'P2'},
-                    {text: 'P10', value: 'P10'}
+                    {text: 'P3', value: 'P3'},
+                    {text: 'P4', value: 'P4'},
+                    {text: 'P5', value: 'P5'},
+                    {text: 'P6', value: 'P6'},
+                    {text: 'P7', value: 'P7'},
+                    {text: 'P8', value: 'P8'},
+                    {text: 'P9', value: 'P9'},
+                    {text: 'P10', value: 'P10'},
+                    {text: 'P11', value: 'P11'},
+                    {text: 'P12', value: 'P12'},
+                    {text: 'P13', value: 'P13'},
+                    {text: 'P14', value: 'P14'},
+                    {text: 'P15', value: 'P15'},
+                    {text: 'P16', value: 'P16'},
+                    {text: 'P19', value: 'P19'},
+                    {text: 'P20', value: 'P20'}
                 ]
             }
         };
