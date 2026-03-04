@@ -360,7 +360,8 @@ export default [
                 id="gui.extension.easyplug.description"
             />
         ),
-        featured: true
+        featured: true,
+        helpLink: '/static/guide/easyplug.html'
     },
     {
         name: 'Maqueen Plus',

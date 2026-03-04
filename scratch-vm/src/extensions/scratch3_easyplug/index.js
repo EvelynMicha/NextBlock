@@ -3,6 +3,7 @@ const ArgumentType = require('../../extension-support/argument-type');
 const BlockType = require('../../extension-support/block-type');
 const formatMessage = require('format-message');
 const log = require('../../util/log');
+const Runtime = require('../../engine/runtime');
 
 const isGreek = () => {
     const setup = formatMessage.setup && formatMessage.setup();
@@ -18,6 +19,8 @@ class Scratch3Easyplug {
          * @type {Runtime}
          */
         this.runtime = runtime;
+        // Register as peripheral so Scratch GUI shows the status modal/button.
+        this.runtime.registerPeripheralExtension('easyplug', this);
         this._connected = false;
         this._transport = 'serial';
         this._radioQueue = [];
@@ -25,6 +28,8 @@ class Scratch3Easyplug {
         this._ledOn = false;
         this._port = null;
         this._writer = null;
+        this._connecting = false;
+        this._savedPorts = Object.create(null);
         this._encoder = typeof TextEncoder !== 'undefined' ? new TextEncoder() : null;
         this._decoder = typeof TextDecoder !== 'undefined' ? new TextDecoder() : null;
         this._reader = null;
@@ -32,6 +37,7 @@ class Scratch3Easyplug {
         this._lastValues = Object.create(null); // key -> {value, seq}
         this._seq = 1;
         this._lcdAddress = 39;
+        this._serialDisconnectBound = null;
     }
 
     getInfo () {
@@ -41,14 +47,15 @@ class Scratch3Easyplug {
             color1: '#0FBD8C',
             color2: '#0E9F78',
             color3: '#0E9F78',
+            showStatusButton: true,
             blocks: [
                 {
                     opcode: 'connect',
                     blockType: BlockType.COMMAND,
                     text: formatMessage({
                         id: 'extension.easyplug.connect',
-                        default: L('connect (USB)', 'σύνδεση (USB)'),
-                        description: 'Connect block label'
+                        default: L('🔌 Connect micro:bit (USB)', '🔌 σύνδεση micro:bit (USB)'),
+                        description: 'Connect block label, explicit USB'
                     })
                 },
                 {
@@ -489,35 +496,119 @@ class Scratch3Easyplug {
         return typeof navigator !== 'undefined' && !!navigator.serial;
     }
 
-    async connect () {
+    async scan () {
+        const list = {};
+        this._savedPorts = Object.create(null);
+        if (this._hasSerial()) {
+            try {
+                const ports = await navigator.serial.getPorts();
+                ports.forEach((port, idx) => {
+                    const info = port.getInfo ? port.getInfo() : {};
+                    const vid = info.usbVendorId ? `0x${info.usbVendorId.toString(16)}` : 'USB';
+                    const pid = info.usbProductId ? `0x${info.usbProductId.toString(16)}` : 'device';
+                    const allowed = (info.usbVendorId === 0x0d28); // mbed / micro:bit VID
+                    if (!allowed) return;
+                    const id = `saved-${vid}-${pid}-${idx}`;
+                    this._savedPorts[id] = port;
+                    list[id] = {
+                        peripheralId: id,
+                        name: L('micro:bit (USB, saved)', 'micro:bit (USB, αποθηκευμένο)') + ` (${vid}:${pid})`,
+                        rssi: -1
+                    };
+                });
+            } catch (e) {
+                // ignore
+            }
+            // Always provide a manual chooser tile.
+            list.request = {
+                peripheralId: 'request',
+                name: L('Choose USB device…', 'Διάλεξε USB συσκευή…'),
+                rssi: -1
+            };
+        }
+        this.runtime.emit(Runtime.PERIPHERAL_LIST_UPDATE, list);
+    }
+
+    async connect (peripheralId) {
+        let chosenPort = null;
+        if (peripheralId && this._savedPorts[peripheralId]) {
+            chosenPort = this._savedPorts[peripheralId];
+        }
+        await this._ensureConnected(chosenPort, peripheralId === 'request');
+        return null;
+    }
+
+    async _ensureConnected (portFromList = null, forcePrompt = false) {
         if (!this._hasSerial()) {
             log.warn('WebSerial not available in this browser/context.');
             throw new Error('WebSerial not available');
         }
+        if (this._connected && this._writer) return;
+        if (this._connecting) {
+            let spins = 0;
+            while (this._connecting && spins < 50) { // wait up to ~500ms
+                await this._sleep(10); spins++;
+            }
+            if (this._connected && this._writer) return;
+        }
+        this._connecting = true;
         // Close previous port if any.
         await this._cleanupSerial();
 
         try {
-            const port = await navigator.serial.requestPort();
+            let port = portFromList;
+            if (!port) {
+                // forcePrompt=true always shows chooser
+                if (forcePrompt) {
+                    port = await navigator.serial.requestPort();
+                } else {
+                    try {
+                        const ports = await navigator.serial.getPorts();
+                        if (ports && ports.length > 0) port = ports[0];
+                    } catch (e) {
+                        // ignore getPorts failure
+                    }
+                    if (!port) {
+                        port = await navigator.serial.requestPort();
+                    }
+                }
+            }
             await port.open({baudRate: 115200});
             this._port = port;
             this._writer = port.writable.getWriter();
             this._transport = 'serial';
             this._connected = true;
+            this._setupSerialDisconnect();
             this._startReader();
+            this.runtime.emit(Runtime.PERIPHERAL_CONNECTED);
         } catch (e) {
             if (e && e.name === 'NotFoundError') {
                 // User cancelled device picker.
                 log.info('EasyPlug serial connect cancelled');
-                return null;
+                this.runtime.emit(Runtime.PERIPHERAL_REQUEST_ERROR);
+                return;
             }
+            this.runtime.emit(Runtime.PERIPHERAL_REQUEST_ERROR);
             throw e;
+        } finally {
+            this._connecting = false;
         }
-        return null;
     }
 
-    disconnect () {
-        this._cleanupSerial();
+    _setupSerialDisconnect () {
+        if (!this._hasSerial()) return;
+        if (this._serialDisconnectBound) return;
+        this._serialDisconnectBound = async event => {
+            // If the unplugged port is ours, clean up silently.
+            if (event && event.target && event.target === this._port) {
+                await this._cleanupSerial(true);
+            }
+        };
+        navigator.serial.addEventListener('disconnect', this._serialDisconnectBound);
+    }
+
+    async disconnect () {
+        await this._cleanupSerial(true);
         this._transport = 'serial';
     }
 
@@ -525,6 +616,24 @@ class Scratch3Easyplug {
         return !!(this._connected && this._writer);
     }
 
+    getStatus () {
+        if (this._connecting) {
+            return {
+                status: 1, // statusMessage: connecting
+                msg: L('Connecting…', 'Σύνδεση…')
+            };
+        }
+        if (this.isConnected()) {
+            return {
+                status: 2, // statusMessage: connected
+                msg: L('Connected (USB)', 'Συνδέθηκε (USB)')
+            };
+        }
+        return {
+            status: 0, // statusMessage: not connected
+            msg: L('Click connect to choose micro:bit', 'Πάτησε σύνδεση για να διαλέξεις micro:bit')
+        };
+    }
     _encode (str) {
         if (this._encoder) return this._encoder.encode(str);
         const buf = new Uint8Array(str.length);
@@ -543,6 +652,11 @@ class Scratch3Easyplug {
             await this._sendSerial(line);
         } catch (e) {
             log.warn('EasyPlug write failed', e);
+            // When cable is pulled, WebSerial throws NetworkError/InvalidStateError.
+            if (e && (e.name === 'NetworkError' || e.name === 'InvalidStateError')) {
+                await this._cleanupSerial(true);
+                return null;
+            }
             throw e;
         }
     }
@@ -577,31 +691,32 @@ class Scratch3Easyplug {
             } catch (e) {
                 log.warn('EasyPlug read error', e);
                 this._connected = false;
+                // If the device vanished, clean up so UI stops throwing.
+                if (e && (e.name === 'NetworkError' || e.name === 'InvalidStateError')) {
+                    await this._cleanupSerial(true);
+                }
             } finally {
-                this._releaseReader();
+                await this._releaseReader();
             }
         };
         loop();
     }
 
-    _releaseReader () {
+    async _releaseReader () {
         if (this._reader) {
             try {
-                this._reader.cancel();
-            } catch (e) {
-                // ignore
-            }
+                await this._reader.cancel();
+            } catch (e) { /* ignore */ }
             try {
                 this._reader.releaseLock();
-            } catch (e) {
-                // ignore
-            }
+            } catch (e) { /* ignore */ }
         }
         this._reader = null;
     }
 
-    async _cleanupSerial () {
-        this._releaseReader();
+    async _cleanupSerial (emitEvent = false) {
+        const wasConnected = this._connected;
+        await this._releaseReader();
         if (this._writer) {
             try {
                 this._writer.releaseLock();
@@ -620,6 +735,9 @@ class Scratch3Easyplug {
         }
         this._port = null;
         this._connected = false;
+        if (emitEvent && wasConnected) {
+            this.runtime.emit(Runtime.PERIPHERAL_DISCONNECTED);
+        }
     }
 
     async _cleanupBle () {
