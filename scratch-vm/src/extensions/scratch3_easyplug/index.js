@@ -50,15 +50,6 @@ class Scratch3Easyplug {
             showStatusButton: true,
             blocks: [
                 {
-                    opcode: 'connect',
-                    blockType: BlockType.COMMAND,
-                    text: formatMessage({
-                        id: 'extension.easyplug.connect',
-                        default: L('🔌 Connect micro:bit (USB)', '🔌 σύνδεση micro:bit (USB)'),
-                        description: 'Connect block label, explicit USB'
-                    })
-                },
-                {
                     opcode: 'isConnected',
                     blockType: BlockType.BOOLEAN,
                     text: formatMessage({
